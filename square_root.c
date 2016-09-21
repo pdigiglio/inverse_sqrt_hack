@@ -14,6 +14,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <time.h>
 
 /** @brief Structure with binary representation of a number. */
@@ -84,11 +85,12 @@ int main() {
 
     clock_t t_real, t_hack;
     for (float f = 1.f; f < 10000; f += 1.f) {
-        // real 1/sqrt
+        /* real 1/sqrt */
         t_real = clock();
         float real_inv_sqrt = 1 / sqrt(f);
         t_real = clock() - t_real;
 
+        /* hack 1/sqrt */
         t_hack = clock();
         float hack_inv_sqrt = inv_hack_sqrt(f);
         t_hack = clock() - t_hack;
