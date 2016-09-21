@@ -1,6 +1,13 @@
 /**
- *  @file   square_root.cpp
- *  @brief  Try to reproduce a 1 / (square root) hack.
+ *  @file    square_root.cpp
+ *  @brief   Reproduce a hack to evaluate \f$1 / \sqrt{x}\f$.
+ *
+ *  @details Please use a _C_ compiler and then run the executable:
+ *  @code{.bash}
+ *   ./square_root  > value_differences.txt
+ *   ./square_root 2> cycle_differences.txt
+ *  @endcode
+ *
  *  @author Paolo Di Giglio
  */
 
@@ -31,7 +38,6 @@ const struct bin_rep binary_representation(long int i) {
     if (!representation.digit)
         exit(EXIT_FAILURE);
 
-    // Convert i into binary
     int j = 0;
     while (i != 0 ) {
         representation.digit[j] = (bool) (i % 2);
@@ -43,9 +49,9 @@ const struct bin_rep binary_representation(long int i) {
 }
 
 /**
- * @brief A very evil bit-level hack to evaluate \f$\/\sqrt(x)\f$.
+ * @brief A very evil bit-level hack to evaluate \f$1/\sqrt{x}\f$.
  * @param x The argument of the square root.
- * @return \f$1/\sqrt(x)\f$.
+ * @return \f$1/\sqrt{x}\f$.
  * @todo Understand this shit!
  */
 float hack_sqrt(float x) {
