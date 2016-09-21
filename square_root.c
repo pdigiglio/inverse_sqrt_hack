@@ -1,5 +1,5 @@
 /**
- *  @file    square_root.cpp
+ *  @file    square_root.c
  *  @brief   Reproduce a hack to evaluate \f$1 / \sqrt{x}\f$.
  *
  *  @details Please use a _C_ compiler and then run the executable:
@@ -17,20 +17,20 @@
 #include <time.h>
 
 /** @brief Structure with binary representation of a number. */
-struct bin_rep {
+typedef struct BinaryRepresentation {
     /** @brief The actual binary digits. */
     bool* digit;
     /** @brief The length of `digit` array. */
     int   length;
-};
+} BinaryRepresentation;
 
 /**
  * @brief Evaluates the binary representation of a `long int`.
  * @param i The number to convert in binary representation.
- * @return A `struct bin_rep` with the binary representation of the input.
+ * @return A `BinaryRepresentation` with the binary representation of the input.
  */
-const struct bin_rep binary_representation(long int i) {
-    struct bin_rep representation;
+const BinaryRepresentation binary_representation(long int i) {
+    BinaryRepresentation representation;
 
     representation.length = 8 * sizeof(long int);
     representation.digit  = (bool *) malloc(representation.length);
@@ -54,7 +54,7 @@ const struct bin_rep binary_representation(long int i) {
  * @return \f$1/\sqrt{x}\f$.
  * @todo Understand this shit!
  */
-float hack_sqrt(float x) {
+float inv_hack_sqrt(float x) {
     float x2 = x * .5f;
     float y  = x;
 
@@ -70,7 +70,7 @@ int main() {
     printf("0x5f3759df = %ld (_10)\n", 0x5f3759df);
     long int i = 0x5f3759df;
 
-    struct bin_rep binary = binary_representation(i);
+    BinaryRepresentation binary = binary_representation(i);
     for (int j = binary.length ; j != 0; --j)
         printf("%d", (int) binary.digit[j]);
 
@@ -90,7 +90,7 @@ int main() {
         t_real = clock() - t_real;
 
         t_hack = clock();
-        float hack_inv_sqrt = hack_sqrt(f);
+        float hack_inv_sqrt = inv_hack_sqrt(f);
         t_hack = clock() - t_hack;
 
         fprintf(stdout, "%f %f %f %f\n", f, real_inv_sqrt, hack_inv_sqrt, real_inv_sqrt - hack_inv_sqrt);
